@@ -7,10 +7,10 @@ from Bio.Alphabet import generic_dna
 from Bio import SeqIO
 import difflib 
 
-fasta_file = "/home/pauffret/Bureau/WORK/PLATAX/vcf_comparison_120517/FINAL_TAB_SORTED_2568SNP_TO_TRANSLATE_ANNOT_200917_seq.fa" #transcript fasta file
-orf_file = "/home/pauffret/Bureau/WORK/PLATAX/vcf_comparison_120517/FINAL_TAB_SORTED_2568SNP_TO_TRANSLATE_ANNOT_200917_seq.fa.transdecoder_dir/longest_orfs.cds" #cds fasta file
-snp_file = "/home/pauffret/Bureau/WORK/PLATAX/vcf_comparison_120517/FINAL_TAB_SORTED_2568SNP_TO_TRANSLATE_ANNOT_200917.txt" #SNP info text file (4 columns : CHROM	POS	REF	ALT)
-out_file = "/home/pauffret/Bureau/WORK/PLATAX/vcf_comparison_120517/FINAL_TAB_SORTED_2568SNP_TO_TRANSLATE_ANNOT_200917_info_codons.txt" #outfile
+fasta_file = "" #transcript fasta file
+orf_file = "longest_orfs.cds" #cds fasta file
+snp_file = "" #SNP info text file (4 columns : CHROM	POS	REF	ALT)
+out_file = "" #outfile
 
 #Read SNP info file and save in a dictionary
 snpF=open(snp_file, "rU")
