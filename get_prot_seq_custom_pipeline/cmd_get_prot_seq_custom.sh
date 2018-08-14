@@ -1,5 +1,7 @@
 #!/bin/bash
 			
+#How to use : bash cmd_get_prot_seq_custom.sh
+
 ###################################################################
 #Pipeline to evaluate if a SNP is leading to a synonymous mutation.
 #######Input : 
