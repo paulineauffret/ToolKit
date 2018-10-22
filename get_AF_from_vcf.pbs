@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -l walltime=05:00:00
+#PBS -l mem=10gb
+#PBS -N "custom_vcf"
+#PBS -o "custom_vcf.out"
+#PBS -l ncpus=1
+#PBS -q sequentiel
+#PBS -r n
+
+
+WORKING_DIRECTORY=~
+PYTHON_SCRIPT=${WORKING_DIRECTORY}/get_AF_from_vcf.py
+ORIGINAL_VCF_FILE=
+BASENAME_VCF=${ORIGINAL_VCF_FILE##*/}.copy
+COPY_VCF_FILE=${WORKING_DIRECTORY}/${BASENAME_VCF}
+OUTPUT=${WORKING_DIRECTORY}/${BASENAME_VCF}.modif
+LOG=${WORKING_DIRECTORY}/python.log
+
+cd ${WORKING_DIRECTORY}
+
+cp ${ORIGINAL_VCF_FILE} ${COPY_VCF_FILE}
+
+python ${PYTHON_SCRIPT} ${COPY_VCF_FILE} ${OUTPUT} >& ${LOG} 2>&1
+
+
