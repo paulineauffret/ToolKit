@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS parameters
+
+
+WORKING_DIRECTORY=
+PYTHON_SCRIPT=get_AF_from_vcf_v4.py
+VCF_FILE=
+BASENAME_VCF=${ORIGINAL_VCF_FILE##*/}
+FINAL_OUTPUT=${WORKING_DIRECTORY}/${BASENAME_VCF}.modif_chi2_v4
+LOG=${WORKING_DIRECTORY}/python.log
+
+#Load conda env
+export PATH=$PATH:/appli/anaconda/2.7/bin
+
+source activate python_env
+
+cd ${WORKING_DIRECTORY} 
+
+python ${PYTHON_SCRIPT} ${VCF_FILE} -t 16 -o ${FINAL_OUTPUT} >& ${LOG} 2>&1
+
