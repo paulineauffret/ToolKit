@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS parameters...
+
+id_run=1
+WORKING_DIRECTORY=												#path to working directory
+PYTHON_SCRIPT=${WORKING_DIRECTORY}/src/vcf_sex.py								#path to python script
+COPY_VCF_FILE=${WORKING_DIRECTORY}/input/sex_det_snp_DP10_maf0.1_miss0.9.recode_biallelic_noComplex.vcf_copie	#path to input vcf file to process
+BASENAME_VCF=${COPY_VCF_FILE##*/}
+FINAL_OUTPUT=${WORKING_DIRECTORY}/results/${BASENAME_VCF}.modif_chi2_v4_${id_run}				#output file name
+LOG=${WORKING_DIRECTORY}/log/python_v4_sexdet_${id_run}.log							#log file name
+
+#Loading conda env conda
+export PATH=$PATH:/appli/anaconda/2.7/bin
+
+source activate /home1/datawork/pauffret/parse_vcf/python_env
+
+#Go to working directory
+cd ${WORKING_DIRECTORY} 
+
+#Execute python script
+python ${PYTHON_SCRIPT} ${COPY_VCF_FILE} -o ${FINAL_OUTPUT} >& ${LOG} 2>&1
