@@ -2,9 +2,9 @@
 
 # Input: vcf file from freebayes
 
-# Output: vcf-like format file, with "CHROM POS REF ALT raw p-values (Chi2 test)" fields.
+# Output: vcf-like format file, with "CHROM, POS, REF, ALT, QUAL, Female missing, Male missing, raw p-values (Chi2 contingency test)" fields.
 
-# Help: python get_AF_from_vcf_v4.py --help
+# Help: python vcf_sex.py --help
 
 #AUTHOR : LEO MILHADE (milhadel)
 
@@ -33,10 +33,6 @@ parser.add_argument('input_file', type=str,
 
 parser.add_argument('-o', '--output', dest='output_file', default="parse_vcf.out",
                     help='output file name')
-parser.add_argument('-t', '--threads', dest='processes', default=2, type = int,
-                    help='number of worker processes to use')
-parser.add_argument('--chunk_size', dest='chunk_size', default=1024*1024, type = int,
-                    help='size of the chunk of lines read in the input file')
 
 args = parser.parse_args()
 
