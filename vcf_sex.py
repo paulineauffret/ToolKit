@@ -2,7 +2,7 @@
 
 # Input: vcf file from freebayes
 
-# Output: vcf-like format file, with "CHROM, POS, REF, ALT, QUAL, Female missing, Male missing, raw p-values (Chi2 contingency test)" fields.
+# Output: vcf-like format file, with "CHROM, POS, REF, ALT, QUAL, Female missing, Male missing, Female AD, Female DP, Male 0/1, Male total, raw p-values (Chi2 contingency test)" fields.
 
 # Help: python vcf_sex.py --help
 
@@ -42,18 +42,19 @@ args = parser.parse_args()
 #Set parameters
 original_column_names = ["CHROM","POS","ID","REF","ALT","QUAL","FILTER","INFO","FORMAT","yellow","green","red"]
 original_column_names = ["CHROM", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO", "FORMAT", "male1", "male2", "poolFemales", "male3", "male4","male5","male6","male7", "male8","male9","male10","male11","male12"]
-column_names = ["CHROM","POS","REF","ALT","QUAL","Female missing", "Male missing", "raw p-values (Chi2 contingency test)"]
-
+column_names = ["CHROM","POS","REF","ALT","QUAL","Female missing", "Male missing", "Female AD", "Female DP", "Male 0/1", "Male total","raw p-values (Chi2 contingency test)"]
 comment_char       = "#"        #comment character for header in vcf file
 split_char         = "\t"       #sample field separator in vcf file
 nb_samples         = 13		#number of samples in vcf file
-indx_columns_start = 9         	#index of colum for the first sample if colum number 1 = CHROM
-nbcol              = int(indx_columns_start)+int(nb_samples)	#number of columns in vcf file
+indx_columns_start = 9         #index of colum for the first sample if colum number 1 = CHROM
+nbcol              = int(indx_columns_start)+int(nb_samples)
 field_sep          = ":"        #for exemple in GT:DP:AD:RO:QR:AO:QA:GL field separator = ":"
 DP_field           = 2          #for exemple in GT:DP:AD:RO:QR:AO:QA:GL DP field = 2
 AD_field           = 3          #for exemple in GT:DP:AD:RO:QR:AO:QA:GL AD field = 3
 GT_field           = 0          #for exemple in GT:DP:AD:RO:QR:AO:QA:GL AD field = 3
 AD_field_sep       = ","        #separator in AD field
+#alpha              = 0.05           #adjusted p-value cutoff
+#adj_method         = "fdr_bh"   #p-value correction method 
 
 end_signal = "PROCESSING DONE"
 
@@ -98,8 +99,8 @@ def process(line):
     except RuntimeWarning, e:
         raw_pval = np.nan 
     
-    #newline = split_char.join((newline, str(female_missing), str(male_missing), str([female_ad, male_het_count, female_dp, male_count]), str(raw_pval)))
-    newline = split_char.join((newline, str(female_missing), str(male_missing), str(raw_pval)))
+    newline = split_char.join((newline, str(female_missing), str(male_missing), str(female_ad), str(female_dp), str(male_het_count), str(male_count), str(raw_pval)))
+    #newline = split_char.join((newline, str(female_missing), str(male_missing), str(raw_pval)))
 
     return newline
 
